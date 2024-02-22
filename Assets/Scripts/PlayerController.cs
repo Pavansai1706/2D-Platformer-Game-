@@ -58,6 +58,15 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+        float vertical = Input.GetAxisRaw("Jump");
+        if (vertical > 0)
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
     }
 
     private void ToggleCrouch()

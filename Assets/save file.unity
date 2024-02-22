@@ -446,8 +446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3e0dba6ddbfbc468a10e5415ba8ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crouchHeight: 1.05
-  normalHeight: 2
+  crouchHeight: 0.5
+  normalHeight: 1
   crouchSpeed: 5
   animator: {fileID: 1388192076}
   speed: 3
