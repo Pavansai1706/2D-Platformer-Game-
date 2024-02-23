@@ -8,17 +8,22 @@ public class PlayerController : MonoBehaviour
     public float normalHeight = 1.0f;
     public float crouchSpeed = 5.0f;
     public Animator animator;
+
     public float speed;
+    public float jump;
+
+    private Rigidbody2D rb2d;
+   
     private bool isCrouching =  false;
     private BoxCollider2D playerCollider;
     private Vector2 normalColliderCenter;
     private Vector2 normalColliderSize;
-
     
 
     private void Awake()
     {
         Debug.Log("Player Controller awake");
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
     private void Start()
     {
@@ -29,8 +34,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        MoveCharacter(horizontal);
-        PlayerMovementAnimation(horizontal);
+        float vertical = Input.GetAxisRaw("Jump");
+        MoveCharacter(horizontal , vertical);
+        PlayerMovementAnimation(horizontal , vertical);
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -38,14 +44,20 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void MoveCharacter(float horizontal)
+    private void MoveCharacter(float horizontal , float vertical)
     {
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-    }
+        if (vertical > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+        }
 
-    private void PlayerMovementAnimation(float horizontal)
+    }
+    
+
+    private void PlayerMovementAnimation(float horizontal , float vertical)
     {
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
@@ -58,7 +70,7 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
-        float vertical = Input.GetAxisRaw("Jump");
+        
         if (vertical > 0)
         {
             animator.SetBool("Jump", true);
