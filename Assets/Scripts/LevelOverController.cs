@@ -9,6 +9,7 @@ public class LevelOverController : MonoBehaviour
         //if (collision.gameObject.CompareTag("Player"))
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Level Finished by the player");}
+            Debug.Log("Level Finished by the player"); }
     }
+
 }
