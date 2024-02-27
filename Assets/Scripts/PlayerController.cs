@@ -6,10 +6,11 @@ public class PlayerController : MonoBehaviour
     public float crouchHeight = 0.5f;
     public float normalHeight = 1.0f;
     public float crouchSpeed = 5.0f;
+    public ScoreController scoreController;
     public Animator animator;
 
-    public float speed;
-    public float jump;
+    public float speed = 5.0f;
+    public float jumpForce = 6.0f; // Decreased jump force for cleaner jump
 
     private Rigidbody2D rb2d;
     private bool isCrouching = false;
@@ -17,12 +18,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 normalColliderCenter;
     private Vector2 normalColliderSize;
 
+    public static PlayerController playerController { get; internal set; }
+
     private void Awake()
     {
         Debug.Log("Player Controller awake");
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
-
+    public void PickUpKey()
+    {
+        Debug.Log("Picked up the key");
+        scoreController.IncreaseScore(10);
+      }
     private void Start()
     {
         playerCollider = GetComponent<BoxCollider2D>();
@@ -51,7 +58,7 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0)
         {
             if (!isCrouching) // Only jump if not crouching
-                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+                rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
     }
 
@@ -114,3 +121,4 @@ public class PlayerController : MonoBehaviour
         playerCollider.offset = targetOffset;
     }
 }
+

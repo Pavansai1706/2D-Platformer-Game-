@@ -140,7 +140,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -182,9 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca57b87e10860144bd4bdc940d5bec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathThreshold: -10
-  respawnPoint: {fileID: 1142276112}
-  deathAnimator: {fileID: 1142276110}
+  playerAnimator: {fileID: 0}
 --- !u!1 &1031247688
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,18 +253,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1142276110 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1197719515336796926, guid: ea105faea3577df4881b5c7d258a37cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1185425337}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1142276112 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1185425337}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1185425337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,6 +271,18 @@ PrefabInstance:
     - target: {fileID: 1186608385, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.4622
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: jump
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: jumpForce
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
         type: 3}
@@ -607,7 +605,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -631,7 +629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917412662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 4.2, z: -0.5234375}
+  m_LocalPosition: {x: -7.22, y: 4.2, z: -0.5234375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

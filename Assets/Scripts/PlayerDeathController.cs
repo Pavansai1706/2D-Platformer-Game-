@@ -31,5 +31,3 @@ public class PlayerDeathController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
-
-
