@@ -25,11 +25,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player Controller awake");
         rb2d = GetComponent<Rigidbody2D>();
     }
-    public void PickUpKey()
+  public void PickUpKey()
     {
         Debug.Log("Picked up the key");
         scoreController.IncreaseScore(10);
-      }
+    }
     private void Start()
     {
         playerCollider = GetComponent<BoxCollider2D>();

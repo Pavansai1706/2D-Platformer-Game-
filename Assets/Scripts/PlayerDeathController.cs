@@ -12,7 +12,7 @@ public class PlayerDeathController : MonoBehaviour
     {
         if (!isDeathAnimationTriggered && collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Player is Dead");
+            
             // Trigger the death animation
             playerAnimator.SetTrigger("Die");
             isDeathAnimationTriggered = true;
