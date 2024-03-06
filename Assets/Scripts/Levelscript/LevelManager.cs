@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -26,7 +26,15 @@ public class LevelManager : MonoBehaviour
             SetLevelStatus(LevelName, LevelStatus.Unlocked);
         }
     }
+    public void MarkCurrentLevelComplete()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SetLevelStatus(currentScene.name, LevelStatus.Completed);
 
+        int nextSceneIndex = currentScene.buildIndex + 1;
+        Scene nextScene = SceneManager.GetSceneByBuildIndex(nextSceneIndex);
+        SetLevelStatus(nextScene.name, LevelStatus.Unlocked);
+    }
     public LevelStatus GetLevelStatus(string level)
     {
         LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);
@@ -35,5 +43,6 @@ public class LevelManager : MonoBehaviour
     public void SetLevelStatus(string level, LevelStatus levelStatus)
     {
         PlayerPrefs.SetInt(level, (int)levelStatus);
+        Debug.Log("Setting Level: " + level + " Status: " + levelStatus);
     }
 }

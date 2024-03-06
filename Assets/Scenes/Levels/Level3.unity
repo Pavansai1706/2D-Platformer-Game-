@@ -338,6 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315768036}
   - component: {fileID: 315768035}
+  - component: {fileID: 315768037}
   m_Layer: 0
   m_Name: Death
   m_TagString: Untagged
@@ -385,6 +386,22 @@ Transform:
   m_Father: {fileID: 1523182987}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &315768037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315768034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa3b2c8c8e266f43ad6d99ca997e3ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 810029374}
+  playerAnimator: {fileID: 1142276110}
+  gameOverController: {fileID: 607159800}
+  damage: 3
 --- !u!1001 &345484160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -740,6 +757,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 607159798}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &607159800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5023060738610252360, guid: c0e4f70b0896efd408df22391555d651,
+    type: 3}
+  m_PrefabInstance: {fileID: 607159798}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3e47b8627e7d54c84511c5d57dc21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &778584787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2567151179254394630, guid: 0caf197bbce2f1d4281def24cf9e5b47,
