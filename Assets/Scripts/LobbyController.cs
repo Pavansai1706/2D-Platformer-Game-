@@ -8,6 +8,7 @@ using System;
 public class LobbyController : MonoBehaviour
 {
     public Button buttonPlay;
+    public GameObject LevelSelection;
 
     private void Awake()
     {
@@ -16,6 +17,8 @@ public class LobbyController : MonoBehaviour
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        LevelSelection.SetActive(true);
     }
+
 }
