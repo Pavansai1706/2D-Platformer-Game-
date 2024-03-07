@@ -23,24 +23,19 @@ public class HealthDisplay : MonoBehaviour
     {
         health = playerHealth.health;
         maxHealth = playerHealth.maxHealth;
+
         for (int i = 0; i < hearts.Length; i++)
         {
             if (i < health)
             {
                 hearts[i].sprite = fullHeart;
+                hearts[i].enabled = true; // Enable hearts that should be visible
             }
             else
             {
                 hearts[i].sprite = emptyHeart;
-            }
-            if(i < maxHealth)
-            {
-                hearts[i].enabled = true;
-            }
-            else
-            {
-                hearts[i].enabled = false;
+                hearts[i].enabled = (i < maxHealth); // Disable hearts beyond maxHealth
             }
         }
     }
-}
+    }
