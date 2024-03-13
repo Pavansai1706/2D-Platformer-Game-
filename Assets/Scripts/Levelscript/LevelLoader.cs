@@ -34,7 +34,9 @@ public class LevelLoader : MonoBehaviour
                 SceneManager.LoadScene(LevelName);
                 break;
         }
-        
+
+
     }
-    
-}
+
+    }
+

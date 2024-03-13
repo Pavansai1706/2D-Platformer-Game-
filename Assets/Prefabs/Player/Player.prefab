@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1186608385}
   - component: {fileID: 1186608384}
-  - component: {fileID: 1186608383}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -26,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186608382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 1.36, z: -10}
+  m_LocalPosition: {x: 0, y: 1.36, z: -10}
   m_LocalScale: {x: 1.7793751, y: 1.6996614, z: 1}
   m_Children: []
   m_Father: {fileID: 6269829317707630483}
@@ -58,7 +57,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.2023773
+  orthographic size: 5.4455967
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -74,14 +73,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1186608383
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186608382}
-  m_Enabled: 1
 --- !u!1 &6493224436806496787
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +244,7 @@ MonoBehaviour:
   scoreController: {fileID: 0}
   animator: {fileID: 1197719515336796926}
   speed: 5
-  jumpForce: 1
+  jumpForce: 0.3
 --- !u!114 &810029374
 MonoBehaviour:
   m_ObjectHideFlags: 0
