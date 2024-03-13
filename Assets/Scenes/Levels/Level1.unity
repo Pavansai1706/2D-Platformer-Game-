@@ -852,7 +852,6 @@ GameObject:
   - component: {fileID: 1031247690}
   - component: {fileID: 1031247689}
   - component: {fileID: 1031247693}
-  - component: {fileID: 1031247692}
   m_Layer: 0
   m_Name: Levelcomplete
   m_TagString: Untagged
@@ -912,25 +911,6 @@ Transform:
   m_Father: {fileID: 1523182987}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1031247692
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031247688}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4836b47a439ab4646a95177ee8c7809f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &1031247693
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1011,6 +991,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 244781264}
     - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: footstepFS.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: stoneFS.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
       propertyPath: gameOverContoller
       value: 
       objectReference: {fileID: 2136492145}
@@ -1018,15 +1006,47 @@ PrefabInstance:
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 2123548872}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: footstepFS.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 13de3c8b19190eb488622c2982f7e977, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: footstepFS.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ccb3ad8b5906ef14d921491eb8be7e2d, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: footstepFS.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 88cf4c38c64a7b84f88a54036e698825, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: footstepFS.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 234b586e812e70b419affbe33e30dcfe, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: stoneFS.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4d02d075426b22b44bbdb5c1fd065ec7, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: stoneFS.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: fd7c2de844921164b88f6fd8ac28d8d4, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: stoneFS.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 173bc4e8efe4f674cb223e3e5581c93d, type: 3}
+    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: stoneFS.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e281a04ebe0d51140b84708ae79a756c, type: 3}
     - target: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 144.6
+      value: -31.5
       objectReference: {fileID: 0}
     - target: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 33
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
         type: 3}
@@ -2420,7 +2440,7 @@ GameObject:
   - component: {fileID: 2103403841}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12627,7 +12647,7 @@ PrefabInstance:
     - target: {fileID: 5023060738610252375, guid: c0e4f70b0896efd408df22391555d651,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00018310547
+      value: 0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 5023060738610252375, guid: c0e4f70b0896efd408df22391555d651,
         type: 3}

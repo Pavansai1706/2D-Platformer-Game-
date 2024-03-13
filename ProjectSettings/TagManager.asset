@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameObject
   - GameOver
+  - Grass
   layers:
   - Default
   - TransparentFX

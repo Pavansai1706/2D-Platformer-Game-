@@ -2,40 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class HealthDisplay : MonoBehaviour
 {
-    public int health;
-    public int maxHealth; 
-
     public Sprite emptyHeart;
     public Sprite fullHeart;
     public Image[] hearts;
 
-    public PlayerHealth playerHealth;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PlayerHealth playerHealth; // Make sure to assign this in the Inspector
 
-    // Update is called once per frame
     void Update()
     {
-        health = playerHealth.health;
-        maxHealth = playerHealth.maxHealth;
-
-        for (int i = 0; i < hearts.Length; i++)
+        if (playerHealth != null) // Check if playerHealth is assigned
         {
-            if (i < health)
+            int health = playerHealth.health;
+            int maxHealth = playerHealth.maxHealth;
+
+            for (int i = 0; i < hearts.Length; i++)
             {
-                hearts[i].sprite = fullHeart;
-                hearts[i].enabled = true; // Enable hearts that should be visible
-            }
-            else
-            {
-                hearts[i].sprite = emptyHeart;
-                hearts[i].enabled = (i < maxHealth); // Disable hearts beyond maxHealth
+                if (i < health)
+                {
+                    hearts[i].sprite = fullHeart;
+                    hearts[i].enabled = true; // Enable hearts that should be visible
+                }
+                else
+                {
+                    hearts[i].sprite = emptyHeart;
+                    hearts[i].enabled = (i < maxHealth); // Disable hearts beyond maxHealth
+                }
             }
         }
+        else
+        {
+            Debug.LogWarning("PlayerHealth component is not assigned.");
+        }
     }
-    }
+}

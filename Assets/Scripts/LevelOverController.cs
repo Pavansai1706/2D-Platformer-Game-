@@ -18,7 +18,26 @@ public class LevelOverController : MonoBehaviour
             {
                 LevelManager.Instance.MarkCurrentLevelComplete();
             }
-          
+
+            // Load the next level
+            LoadNextLevel();
+        }
+    }
+
+    void LoadNextLevel()
+    {
+        // Get the index of the current scene
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Load the next scene if available
+        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
+        else
+        {
+            Debug.LogWarning("No next scene available.");
+            // You can handle what to do if there's no next scene, maybe load a specific scene or go back to the main menu.
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
@@ -9,8 +10,8 @@ public class PlayerController : MonoBehaviour
     public GameOverController gameOverContoller;
     public ScoreController scoreController;
     public Animator animator;
-    
 
+    private AudioSource footStepSource;
     public float speed = 5.0f;
     public float jumpForce = 6.0f; // Decreased jump force for cleaner jump
 
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();
         normalColliderCenter = playerCollider.offset;
         normalColliderSize = playerCollider.size;
+        footStepSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -112,7 +114,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(ResizeCollider(normalHeight));
         }
     }
-
     private IEnumerator ResizeCollider(float targetHeight)
     {
         Vector2 currentSize = playerCollider.size;
@@ -131,5 +132,57 @@ public class PlayerController : MonoBehaviour
         playerCollider.size = targetSize;
         playerCollider.offset = targetOffset;
     }
+
+    [Header("FootSteps")]
+    public List<AudioClip> footstepFS;
+    public List<AudioClip> stoneFS;
+
+    enum FSMaterial
+    {
+        footstep,
+        stone,
+    }
+
+  
+
+    void PlayFootStep(FSMaterial material)
+    {
+        AudioClip clipToPlay = null;
+
+        switch (material)
+        {
+            case FSMaterial.footstep:
+                if (footstepFS.Count > 0)
+                {
+                    clipToPlay = footstepFS[UnityEngine.Random.Range(0, footstepFS.Count)];
+                }
+                break;
+            case FSMaterial.stone:
+                if (stoneFS.Count > 0)
+                {
+                    clipToPlay = stoneFS[UnityEngine.Random.Range(0, stoneFS.Count)];
+                }
+                break;
+        }
+
+        if (clipToPlay != null)
+        {
+            footStepSource.PlayOneShot(clipToPlay);
+        }
+        else
+        {
+            Debug.LogWarning("No footstep sound available for the specified material.");
+        }
+    }
+
+    // Example of calling PlayFootStep when needed
+    void ExampleMethod()
+    {
+        // Call PlayFootStep with appropriate material
+        PlayFootStep(FSMaterial.footstep);
+        // or
+        PlayFootStep(FSMaterial.stone);
+    }
 }
+
 
