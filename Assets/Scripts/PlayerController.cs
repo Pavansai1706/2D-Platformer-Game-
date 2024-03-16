@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     public float crouchHeight = 0.5f;
@@ -13,35 +14,34 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource footStepSource;
     public float speed = 5.0f;
-    public float jumpForce = 6.0f; // Decreased jump force for cleaner jump
+    public float jumpForce = 6.0f;
 
-    private Rigidbody2D rb2d;
-    private bool isCrouching = false;
+    public Rigidbody2D rb2d;
+    public bool isCrouching = false;
     private BoxCollider2D playerCollider;
     private Vector2 normalColliderCenter;
     private Vector2 normalColliderSize;
-
-    public static PlayerController playerController { get; internal set; }
+    private bool isGrounded = false;
+    private bool jump;
 
     private void Awake()
     {
         Debug.Log("Player Controller awake");
         rb2d = GetComponent<Rigidbody2D>();
     }
-     
+
     public void KillPlayer()
     {
         Debug.Log("Player Killed by the player");
         gameOverContoller.PlayerDied();
-       
     }
-    
-     
-  public void PickUpKey()
+
+    public void PickUpKey()
     {
         Debug.Log("Picked up the key");
         scoreController.IncreaseScore(10);
     }
+
     private void Start()
     {
         playerCollider = GetComponent<BoxCollider2D>();
@@ -68,10 +68,11 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-        if (vertical > 0)
+
+        if (vertical > 0 && isGrounded)
         {
-            if (!isCrouching) // Only jump if not crouching
-                rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            isGrounded = false;
         }
     }
 
@@ -91,11 +92,14 @@ public class PlayerController : MonoBehaviour
 
         if (vertical > 0 && !isCrouching)
         {
+            jump = true;
             animator.SetBool("Jump", true);
         }
         else
         {
-            animator.SetBool("Jump", false);
+            jump = false;
+            animator.SetFloat("yVelocity", rb2d.velocity.y);
+            animator.SetFloat("yVelocity", rb2d.velocity.y);
         }
     }
 
@@ -113,7 +117,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Crouch", false);
             StartCoroutine(ResizeCollider(normalHeight));
         }
+
+     
     }
+
     private IEnumerator ResizeCollider(float targetHeight)
     {
         Vector2 currentSize = playerCollider.size;
@@ -133,56 +140,20 @@ public class PlayerController : MonoBehaviour
         playerCollider.offset = targetOffset;
     }
 
-    [Header("FootSteps")]
-    public List<AudioClip> footstepFS;
-    public List<AudioClip> stoneFS;
-
-    enum FSMaterial
+    private void OnCollisionStay2D(Collision2D other)
     {
-        footstep,
-        stone,
-    }
-
-  
-
-    void PlayFootStep(FSMaterial material)
-    {
-        AudioClip clipToPlay = null;
-
-        switch (material)
+        if (other.transform.CompareTag("Ground"))
         {
-            case FSMaterial.footstep:
-                if (footstepFS.Count > 0)
-                {
-                    clipToPlay = footstepFS[UnityEngine.Random.Range(0, footstepFS.Count)];
-                }
-                break;
-            case FSMaterial.stone:
-                if (stoneFS.Count > 0)
-                {
-                    clipToPlay = stoneFS[UnityEngine.Random.Range(0, stoneFS.Count)];
-                }
-                break;
-        }
-
-        if (clipToPlay != null)
-        {
-            footStepSource.PlayOneShot(clipToPlay);
-        }
-        else
-        {
-            Debug.LogWarning("No footstep sound available for the specified material.");
+            isGrounded = true;
+            animator.SetBool("Jump", !isGrounded);
         }
     }
 
-    // Example of calling PlayFootStep when needed
-    void ExampleMethod()
+    private void OnCollisionExit2D(Collision2D other)
     {
-        // Call PlayFootStep with appropriate material
-        PlayFootStep(FSMaterial.footstep);
-        // or
-        PlayFootStep(FSMaterial.stone);
+        if (other.transform.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
-
-
