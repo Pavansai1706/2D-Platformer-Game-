@@ -10,12 +10,12 @@ public class LobbyController : MonoBehaviour
     public Button buttonPlay;
     public GameObject LevelSelection;
 
-    private void Awake()
+    public void Awake()
     {
         buttonPlay.onClick.AddListener(PlayGame);
     }
 
-    private void PlayGame()
+    public void PlayGame()
     {
         SoundManager.Instance.Play(Sounds.ButtonClick);
         LevelSelection.SetActive(true);

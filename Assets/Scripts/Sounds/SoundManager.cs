@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
 
     public SoundType[] Sounds;
    
-    private void Awake()
+    public void Awake()
     {
         if (instance == null)
         {
@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
+    public void Start()
     {
         PlayMusic(global::Sounds.Music);
     }
@@ -39,10 +39,7 @@ public class SoundManager : MonoBehaviour
             soundMusic.clip = clip;
             soundMusic.Play();
         }
-        else
-        {
-            Debug.LogError("Clip not found for sound type:" + sound);
-        }
+        
     }
 
     public void Play(Sounds sound)
@@ -52,13 +49,10 @@ public class SoundManager : MonoBehaviour
         {
             soundEffect.PlayOneShot(clip);
         }
-        else
-        {
-            Debug.LogError("Clip not found for sound type:" + sound);
-        }
+       
     }
 
-    private AudioClip getSoundClip(Sounds sound)
+    public AudioClip getSoundClip(Sounds sound)
     {
         SoundType item = Array.Find(Sounds, i => i.soundType == sound);
             if (item != null)

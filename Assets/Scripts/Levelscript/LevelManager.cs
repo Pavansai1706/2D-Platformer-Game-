@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private static LevelManager instance;
+    public static LevelManager instance;
     public static LevelManager Instance { get { return instance; } }
 
     public string LevelName;
@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    private void Start()
+    public void Start()
     {
         if (GetLevelStatus(LevelName) == LevelStatus.Locked)
             {

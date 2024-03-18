@@ -9,7 +9,7 @@ public class HealthDisplay : MonoBehaviour
     public Sprite fullHeart;
     public Image[] hearts;
 
-    public PlayerHealth playerHealth; // Make sure to assign this in the Inspector
+    private PlayerHealth playerHealth; // Make sure to assign this in the Inspector
 
     void Update()
     {
@@ -32,9 +32,6 @@ public class HealthDisplay : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            Debug.LogWarning("PlayerHealth component is not assigned.");
-        }
+        
     }
 }

@@ -11,7 +11,7 @@ public class LevelOverController : MonoBehaviour
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            Debug.Log("Level Finished by the player");
+            
 
             // Ensure that LevelManager.Instance is not null before accessing it
             if (LevelManager.Instance != null)
@@ -36,7 +36,7 @@ public class LevelOverController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No next scene available.");
+           
             // You can handle what to do if there's no next scene, maybe load a specific scene or go back to the main menu.
         }
     }

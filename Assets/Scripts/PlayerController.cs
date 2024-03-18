@@ -5,19 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float crouchHeight = 0.5f;
-    public float normalHeight = 1.0f;
-    public float crouchSpeed = 5.0f;
-    public GameOverController gameOverContoller;
-    public ScoreController scoreController;
-    public Animator animator;
+    private float crouchHeight = 0.5f;
+    private float normalHeight = 1.0f;
+    private float crouchSpeed = 5.0f;
+    private GameOverController gameOverController;
+    private ScoreController scoreController;
+    private Animator animator; // <-- Initialize this field
 
-    private AudioSource footStepSource;
-    public float speed = 5.0f;
-    public float jumpForce = 6.0f;
+    private float speed = 5.0f;
+    private float jumpForce = 6.0f;
 
-    public Rigidbody2D rb2d;
-    public bool isCrouching = false;
+    private Rigidbody2D rigidBody2d;
+    private bool isCrouching = false;
     private BoxCollider2D playerCollider;
     private Vector2 normalColliderCenter;
     private Vector2 normalColliderSize;
@@ -26,19 +25,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Player Controller awake");
-        rb2d = GetComponent<Rigidbody2D>();
+        rigidBody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>(); // <-- Initialize the animator
     }
 
     public void KillPlayer()
     {
-        Debug.Log("Player Killed by the player");
-        gameOverContoller.PlayerDied();
+        gameOverController.PlayerDied();
     }
 
     public void PickUpKey()
     {
-        Debug.Log("Picked up the key");
         scoreController.IncreaseScore(10);
     }
 
@@ -47,7 +44,6 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();
         normalColliderCenter = playerCollider.offset;
         normalColliderSize = playerCollider.size;
-        footStepSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -71,35 +67,37 @@ public class PlayerController : MonoBehaviour
 
         if (vertical > 0 && isGrounded)
         {
-            rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            rigidBody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
         }
     }
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
     {
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        Vector3 scale = transform.localScale;
-        if (horizontal < 0)
+        if (animator != null) // Check if the animator is initialized
         {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
+            animator.SetFloat("Speed", Mathf.Abs(horizontal));
+            Vector3 scale = transform.localScale;
+            if (horizontal < 0)
+            {
+                scale.x = -1f * Mathf.Abs(scale.x);
+            }
+            else if (horizontal > 0)
+            {
+                scale.x = Mathf.Abs(scale.x);
+            }
+            transform.localScale = scale;
 
-        if (vertical > 0 && !isCrouching)
-        {
-            jump = true;
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            jump = false;
-            animator.SetFloat("yVelocity", rb2d.velocity.y);
-            animator.SetFloat("yVelocity", rb2d.velocity.y);
+            if (vertical > 0 && !isCrouching)
+            {
+                jump = true;
+                animator.SetBool("Jump", true);
+            }
+            else
+            {
+                jump = false;
+                animator.SetFloat("yVelocity", rigidBody2d.velocity.y);
+            }
         }
     }
 
@@ -117,8 +115,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Crouch", false);
             StartCoroutine(ResizeCollider(normalHeight));
         }
-
-     
     }
 
     private IEnumerator ResizeCollider(float targetHeight)
@@ -145,7 +141,10 @@ public class PlayerController : MonoBehaviour
         if (other.transform.CompareTag("Ground"))
         {
             isGrounded = true;
-            animator.SetBool("Jump", !isGrounded);
+            if (animator != null) // Check if the animator is initialized
+            {
+                animator.SetBool("Jump", !isGrounded);
+            }
         }
     }
 
@@ -157,3 +156,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+

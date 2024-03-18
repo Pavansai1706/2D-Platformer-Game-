@@ -7,17 +7,17 @@ using System;
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
 {
-    private Button button;
+    public Button button;
 
     public string LevelName;
 
-    private void Awake()
+    public void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(onClick);
     }
 
-    private void onClick()
+    public void onClick()
     {
         LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
         switch (levelStatus)

@@ -2,13 +2,13 @@
 
 public class PlayerSound : MonoBehaviour
 {
-    public AudioSource footstepSource;
-    public AudioClip[] footstepSounds;
-    public AudioClip jumpSound;
-    public float footstepInterval = 0.5f; // Interval between each footstep sound
+    private AudioSource footstepSource;
+    private AudioClip[] footstepSounds;
+    private AudioClip jumpSound;
+    private float footstepInterval = 0.5f; // Interval between each footstep sound
 
     private float nextFootstepTime; // Time for the next footstep sound
-    private bool isJumping = false;
+    private  bool isJumping = false;
     private bool isCrouching = false;
 
     private void Start()
@@ -38,7 +38,7 @@ public class PlayerSound : MonoBehaviour
         nextFootstepTime = Time.time + footstepInterval;
     }
 
-    public void PlayJumpSound()
+    private void PlayJumpSound()
     {
         footstepSource.clip = jumpSound;
         footstepSource.Play();
@@ -51,7 +51,7 @@ public class PlayerSound : MonoBehaviour
         return hit.collider != null;
     }
 
-    public void SetJumping(bool value)
+    private void SetJumping(bool value)
     {
         isJumping = value;
         if (isJumping)
@@ -60,7 +60,7 @@ public class PlayerSound : MonoBehaviour
         }
     }
 
-    public void SetCrouching(bool value)
+    private void SetCrouching(bool value)
     {
         isCrouching = value;
     }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerDeathController : MonoBehaviour
 {
-    public Animator playerAnimator; // Reference to the player's Animator component
-    public GameObject gameOverObject; // Reference to the game over object
+    private Animator playerAnimator; // Reference to the player's Animator component
+    private GameObject gameOverObject; // Reference to the game over object
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
