@@ -7,19 +7,20 @@ using System;
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
 {
-    public Button button;
+    private Button button; // Changed access modifier to private
 
-    public string LevelName;
+    [SerializeField]
+    private string levelName; // Changed access modifier to private
 
-    public void Awake()
+    private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(onClick);
+        button.onClick.AddListener(OnClick); // Changed method name to follow C# conventions
     }
 
-    public void onClick()
+    private void OnClick() // Changed access modifier to private
     {
-        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(levelName); // Accessed levelName with private modifier
         switch (levelStatus)
         {
             case LevelStatus.Locked:
@@ -27,18 +28,12 @@ public class LevelLoader : MonoBehaviour
                 break;
 
             case LevelStatus.Unlocked:
+            case LevelStatus.Completed: // Combined cases since they do the same thing
                 SoundManager.Instance.Play(Sounds.ButtonClick);
-                SceneManager.LoadScene(LevelName);
-                break;
-
-            case LevelStatus.Completed:
-                SoundManager.Instance.Play(Sounds.ButtonClick);
-                SceneManager.LoadScene(LevelName);
+                SceneManager.LoadScene(levelName); // Accessed levelName with private modifier
                 break;
         }
-
-
     }
+}
 
-    }
 

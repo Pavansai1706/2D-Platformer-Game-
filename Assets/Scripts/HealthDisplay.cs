@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
 {
-    public Sprite emptyHeart;
-    public Sprite fullHeart;
-    public Image[] hearts;
+    [SerializeField] private Sprite emptyHeart;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Image[] hearts;
 
-    private PlayerHealth playerHealth; // Make sure to assign this in the Inspector
+    [SerializeField] private PlayerHealth playerHealth; // Make sure to assign this in the Inspector
 
-    void Update()
+    private void Update()
     {
         if (playerHealth != null) // Check if playerHealth is assigned
         {
-            int health = playerHealth.health;
-            int maxHealth = playerHealth.maxHealth;
+            int health = playerHealth.Health; // Accessing health using the Health property
+            int maxHealth = playerHealth.MaxHealth; // Accessing maxHealth using the MaxHealth property
 
             for (int i = 0; i < hearts.Length; i++)
             {
@@ -32,6 +30,9 @@ public class HealthDisplay : MonoBehaviour
                 }
             }
         }
-        
     }
 }
+
+
+
+

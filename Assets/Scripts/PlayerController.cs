@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour
     private float normalHeight = 1.0f;
     private float crouchSpeed = 5.0f;
     private GameOverController gameOverController;
-    private ScoreController scoreController;
-    private Animator animator; // <-- Initialize this field
+    private ScoreController scoreController; // Added field for ScoreController
+   public Animator animator;
 
     private float speed = 5.0f;
-    private float jumpForce = 6.0f;
+    private float jumpForce = 4.0f; // Decreased jump force
 
     private Rigidbody2D rigidBody2d;
     private bool isCrouching = false;
@@ -23,20 +23,14 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
     private bool jump;
 
+    private const string CROUCH = "Crouch";
+    private const string JUMP = "Jump";
+    private const string GROUND = "Ground";
+
     private void Awake()
     {
         rigidBody2d = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>(); // <-- Initialize the animator
-    }
-
-    public void KillPlayer()
-    {
-        gameOverController.PlayerDied();
-    }
-
-    public void PickUpKey()
-    {
-        scoreController.IncreaseScore(10);
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -44,12 +38,19 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();
         normalColliderCenter = playerCollider.offset;
         normalColliderSize = playerCollider.size;
+
+        // Find the ScoreController in the scene
+        scoreController = FindObjectOfType<ScoreController>();
+        if (scoreController == null)
+        {
+            Debug.LogError("ScoreController not found in the scene.");
+        }
     }
 
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        float vertical = Input.GetAxisRaw(JUMP);
         MoveCharacter(horizontal, vertical);
         PlayerMovementAnimation(horizontal, vertical);
 
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
     {
-        if (animator != null) // Check if the animator is initialized
+        if (animator != null)
         {
             animator.SetFloat("Speed", Mathf.Abs(horizontal));
             Vector3 scale = transform.localScale;
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
             if (vertical > 0 && !isCrouching)
             {
                 jump = true;
-                animator.SetBool("Jump", true);
+                animator.SetBool(JUMP, true);
             }
             else
             {
@@ -107,12 +108,12 @@ public class PlayerController : MonoBehaviour
 
         if (isCrouching)
         {
-            animator.SetBool("Crouch", true);
+            animator.SetBool(CROUCH, true);
             StartCoroutine(ResizeCollider(crouchHeight));
         }
         else
         {
-            animator.SetBool("Crouch", false);
+            animator.SetBool(CROUCH, false);
             StartCoroutine(ResizeCollider(normalHeight));
         }
     }
@@ -138,22 +139,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.transform.CompareTag("Ground"))
+        if (other.transform.CompareTag(GROUND))
         {
             isGrounded = true;
-            if (animator != null) // Check if the animator is initialized
+            if (animator != null)
             {
-                animator.SetBool("Jump", !isGrounded);
+                animator.SetBool(JUMP, !isGrounded);
             }
         }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.transform.CompareTag("Ground"))
+        if (other.transform.CompareTag(GROUND))
         {
             isGrounded = false;
         }
     }
-}
 
+    private void KillPlayer() => gameOverController.PlayerDied();
+
+    public void PickUpKey()
+    {
+        if (scoreController != null)
+        {
+            scoreController.IncreaseScore(10);
+        }
+    }
+}

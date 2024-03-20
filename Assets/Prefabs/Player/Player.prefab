@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 810029375}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,16 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3e0dba6ddbfbc468a10e5415ba8ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crouchHeight: 0.5
-  normalHeight: 1
-  crouchSpeed: 5
-  gameOverContoller: {fileID: 0}
-  scoreController: {fileID: 0}
   animator: {fileID: 1197719515336796926}
-  speed: 5
-  jumpForce: 4
-  rb2d: {fileID: 1388192079}
-  isCrouching: 0
 --- !u!114 &810029374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1a73139a124a94db77a0e027c847f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  maxHealth: 3
+  animator: {fileID: 1197719515336796926}
+  gameOverController: {fileID: 0}
 --- !u!114 &810029375
 MonoBehaviour:
   m_ObjectHideFlags: 0

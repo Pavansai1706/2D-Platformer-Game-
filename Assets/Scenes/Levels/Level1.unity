@@ -139,6 +139,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 789061171864611092, guid: e45e69a3f9b499748a1ff33e8db6846c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4216188950023240957, guid: e45e69a3f9b499748a1ff33e8db6846c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -594,8 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79704d4054488c54d894485f66424a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 1142276110}
-  gameOverObject: {fileID: 1721910274}
+  playerAnimator: {fileID: 0}
+  gameOverObject: {fileID: 0}
 --- !u!1001 &345484160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -741,6 +746,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2567151179254394627, guid: 0caf197bbce2f1d4281def24cf9e5b47,
     type: 3}
   m_PrefabInstance: {fileID: 1381941824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &476435984 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1185425337}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &778584790 stripped
 Transform:
@@ -978,6 +989,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 810029374, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
+      propertyPath: gameOverController
+      value: 
+      objectReference: {fileID: 2136492145}
     - target: {fileID: 810029375, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
       propertyPath: hearts.Array.data[0]
       value: 
@@ -990,14 +1005,6 @@ PrefabInstance:
       propertyPath: hearts.Array.data[2]
       value: 
       objectReference: {fileID: 244781264}
-    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
-      propertyPath: gameOverContoller
-      value: 
-      objectReference: {fileID: 2136492145}
-    - target: {fileID: 1388192081, guid: ea105faea3577df4881b5c7d258a37cc, type: 3}
-      propertyPath: scoreController
-      value: 
-      objectReference: {fileID: 2123548872}
     - target: {fileID: 6269829317707630483, guid: ea105faea3577df4881b5c7d258a37cc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1067,27 +1074,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1523182987}
     m_Modifications:
-    - target: {fileID: 1369284785, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
-      propertyPath: playerHealth
-      value: 
-      objectReference: {fileID: 810029374}
-    - target: {fileID: 1369284785, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 1142276110}
-    - target: {fileID: 1369284785, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
-      propertyPath: gameOverController
-      value: 
-      objectReference: {fileID: 2136492145}
     - target: {fileID: 1614951265118266097, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1614951265118266097, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.9
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 1614951265118266097, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
         type: 3}
@@ -1139,6 +1134,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1614951265118266109, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 476435984}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
 --- !u!4 &1215671978 stripped
@@ -1884,6 +1884,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 789061171864611092, guid: e45e69a3f9b499748a1ff33e8db6846c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4216188950023240957, guid: e45e69a3f9b499748a1ff33e8db6846c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2145,12 +2150,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1721910274 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5023060738610252372, guid: c0e4f70b0896efd408df22391555d651,
-    type: 3}
-  m_PrefabInstance: {fileID: 5023060737456276025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1723893137
 GameObject:
   m_ObjectHideFlags: 0
@@ -12236,7 +12235,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5023060737456276025}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721910274}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf3e47b8627e7d54c84511c5d57dc21d, type: 3}
@@ -12249,27 +12248,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1523182987}
     m_Modifications:
-    - target: {fileID: 1369284785, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
-      propertyPath: playerHealth
-      value: 
-      objectReference: {fileID: 810029374}
-    - target: {fileID: 1369284785, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 1142276110}
-    - target: {fileID: 1369284785, guid: 1da239bfa19656d4a8d20c0fe7376f0e, type: 3}
-      propertyPath: gameOverController
-      value: 
-      objectReference: {fileID: 2136492145}
     - target: {fileID: 1614951265118266097, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.5
+      value: -20.5
       objectReference: {fileID: 0}
     - target: {fileID: 1614951265118266097, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 34.94
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1614951265118266097, guid: 1da239bfa19656d4a8d20c0fe7376f0e,
         type: 3}
@@ -12491,6 +12478,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 3524047242831441780, guid: 555b60b2719d2684883e861407991055,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4287794542789017088, guid: 555b60b2719d2684883e861407991055,
         type: 3}
       propertyPath: playerHealth
@@ -12515,10 +12507,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1723893141}
     m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: LevelName
-      value: Lobby
-      objectReference: {fileID: 0}
     - target: {fileID: 5023060738610252372, guid: c0e4f70b0896efd408df22391555d651,
         type: 3}
       propertyPath: m_Name
@@ -12528,21 +12516,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5023060738610252374, guid: c0e4f70b0896efd408df22391555d651,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.7607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 5023060738610252374, guid: c0e4f70b0896efd408df22391555d651,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.7607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 5023060738610252374, guid: c0e4f70b0896efd408df22391555d651,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.7607844
       objectReference: {fileID: 0}
     - target: {fileID: 5023060738610252375, guid: c0e4f70b0896efd408df22391555d651,
         type: 3}
@@ -12648,11 +12621,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5023060738906696019, guid: c0e4f70b0896efd408df22391555d651,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e4f70b0896efd408df22391555d651, type: 3}

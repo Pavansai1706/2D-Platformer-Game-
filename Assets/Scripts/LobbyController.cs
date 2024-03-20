@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System;
 
 public class LobbyController : MonoBehaviour
 {
-    public Button buttonPlay;
-    public GameObject LevelSelection;
+    [SerializeField] private Button buttonPlay;
+    [SerializeField] private GameObject levelSelection;
 
-    public void Awake()
+    private void Awake()
     {
-        buttonPlay.onClick.AddListener(PlayGame);
+        if (buttonPlay != null)
+        {
+            buttonPlay.onClick.AddListener(PlayGame);
+        }
     }
 
-    public void PlayGame()
+    private void PlayGame()
     {
-        SoundManager.Instance.Play(Sounds.ButtonClick);
-        LevelSelection.SetActive(true);
-    }
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(Sounds.ButtonClick);
+        }
 
+        if (levelSelection != null)
+        {
+            levelSelection.SetActive(true);
+        }
+    }
 }

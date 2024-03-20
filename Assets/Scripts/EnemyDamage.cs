@@ -2,10 +2,8 @@
 
 public class EnemyDamage : MonoBehaviour
 {
-    private PlayerHealth playerHealth;
     private Animator playerAnimator; // Reference to the player's Animator component
     private GameOverController gameOverController; // Reference to the GameOverController
-    private int damage = 1;
 
     private int damageCount = 0;
     private bool isDead = false;
@@ -13,16 +11,14 @@ public class EnemyDamage : MonoBehaviour
 
     private void Start()
     {
-        playerHealth = FindObjectOfType<PlayerHealth>(); // Assuming PlayerHealth is a component attached to the player
         playerAnimator = GetComponent<Animator>(); // Assuming the animator is attached to the enemy
         gameOverController = FindObjectOfType<GameOverController>(); // Assuming GameOverController is a singleton or attached to a persistent object
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null && !isDead)
+        if (collision.gameObject.CompareTag("Player") && !isDead)
         {
-            playerHealth.TakeDamage(damage);
             if (damageCount < 2)
             {
                 // Trigger the damage animation
@@ -45,7 +41,7 @@ public class EnemyDamage : MonoBehaviour
     }
 
     // Function to be called from the animation event
-    public void ScheduleIdleAnimation()
+    private void ScheduleIdleAnimation()
     {
         isIdleScheduled = true;
     }
@@ -60,3 +56,4 @@ public class EnemyDamage : MonoBehaviour
         }
     }
 }
+

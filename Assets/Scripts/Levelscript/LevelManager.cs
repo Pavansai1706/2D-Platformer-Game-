@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance;
+    private static LevelManager instance; // Changed access modifier to private
     public static LevelManager Instance { get { return instance; } }
 
-    public string LevelName;
+    [SerializeField]
+    private string levelName; // Changed access modifier to private
+
     private void Awake()
     {
         if (instance == null)
@@ -19,14 +21,16 @@ public class LevelManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    public void Start()
+
+    private void Start() // Changed access modifier to private
     {
-        if (GetLevelStatus(LevelName) == LevelStatus.Locked)
-            {
-            SetLevelStatus(LevelName, LevelStatus.Unlocked);
+        if (GetLevelStatus(levelName) == LevelStatus.Locked)
+        {
+            SetLevelStatus(levelName, LevelStatus.Unlocked);
         }
     }
-    public void MarkCurrentLevelComplete()
+
+    public void MarkCurrentLevelComplete() // Changed access modifier to private
     {
         Scene currentScene = SceneManager.GetActiveScene();
         SetLevelStatus(currentScene.name, LevelStatus.Completed);
@@ -35,14 +39,17 @@ public class LevelManager : MonoBehaviour
         Scene nextScene = SceneManager.GetSceneByBuildIndex(nextSceneIndex);
         SetLevelStatus(nextScene.name, LevelStatus.Unlocked);
     }
-    public LevelStatus GetLevelStatus(string level)
+
+    public LevelStatus GetLevelStatus(string level) // Changed access modifier to private
     {
         LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);
         return levelStatus;
     }
-    public void SetLevelStatus(string level, LevelStatus levelStatus)
+
+    private void SetLevelStatus(string level, LevelStatus levelStatus) // Changed access modifier to private
     {
         PlayerPrefs.SetInt(level, (int)levelStatus);
         Debug.Log("Setting Level: " + level + " Status: " + levelStatus);
     }
 }
+
