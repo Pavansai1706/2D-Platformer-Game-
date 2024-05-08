@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private const string CROUCH = "Crouch";
     private const string JUMP = "Jump";
     private const string GROUND = "Ground";
+    private const string HORIZONTAL = "Horizontal";
+    private const string SPEED = "Speed";
 
     private void Awake()
     {
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxisRaw(HORIZONTAL);
         float vertical = Input.GetAxisRaw(JUMP);
         MoveCharacter(horizontal, vertical);
         PlayerMovementAnimation(horizontal, vertical);
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (animator != null)
         {
-            animator.SetFloat("Speed", Mathf.Abs(horizontal));
+            animator.SetFloat(SPEED, Mathf.Abs(horizontal));
             Vector3 scale = transform.localScale;
             if (horizontal < 0)
             {

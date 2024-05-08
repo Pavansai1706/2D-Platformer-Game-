@@ -2,14 +2,17 @@
 
 public class PlayerSound : MonoBehaviour
 {
-    private AudioSource footstepSource;
-    private AudioClip[] footstepSounds;
-    private AudioClip jumpSound;
-    private float footstepInterval = 0.5f; // Interval between each footstep sound
+   [SerializeField] private AudioSource footstepSource;
+    [SerializeField] private AudioClip[] footstepSounds;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private float footstepInterval = 0.5f; // Interval between each footstep sound
 
     private float nextFootstepTime; // Time for the next footstep sound
     private  bool isJumping = false;
     private bool isCrouching = false;
+
+    private const string HORIZONTAL = "Horizontal";
+
 
     private void Start()
     {
@@ -19,7 +22,7 @@ public class PlayerSound : MonoBehaviour
     private void Update()
     {
         // Check if the player is grounded and not jumping or crouching
-        if (Input.GetAxisRaw("Horizontal") != 0 && IsGrounded() && Time.time >= nextFootstepTime && !isJumping && !isCrouching)
+        if (Input.GetAxisRaw(HORIZONTAL) != 0 && IsGrounded() && Time.time >= nextFootstepTime && !isJumping && !isCrouching)
         {
             PlayFootstepSound(); // Play footstep sound when moving horizontally and grounded
         }
