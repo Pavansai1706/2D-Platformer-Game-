@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float crouchHeight = 0.5f;
     public float normalHeight = 1.0f;
     public float crouchSpeed = 5.0f;
+    public GameOverController gameOverContoller;
     public ScoreController scoreController;
     public Animator animator;
+    
 
     public float speed = 5.0f;
     public float jumpForce = 6.0f; // Decreased jump force for cleaner jump
@@ -25,6 +27,15 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player Controller awake");
         rb2d = GetComponent<Rigidbody2D>();
     }
+     
+    public void KillPlayer()
+    {
+        Debug.Log("Player Killed by the player");
+        gameOverContoller.PlayerDied();
+       
+    }
+    
+     
   public void PickUpKey()
     {
         Debug.Log("Picked up the key");

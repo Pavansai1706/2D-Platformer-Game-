@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
     public PlayerHealth playerHealth;
-    public int damage = 1;
     public Animator playerAnimator; // Reference to the player's Animator component
+    public GameOverController gameOverController; // Reference to the GameOverController
+    public int damage = 1;
+
     private int damageCount = 0;
     private bool isDead = false;
     private bool isIdleScheduled = false;
@@ -26,12 +25,15 @@ public class EnemyDamage : MonoBehaviour
             }
             else
             {
-                
                 // Trigger the death animation
                 playerAnimator.SetTrigger("Die");
                 isDead = true;
-                // Reload the level after a delay
-                StartCoroutine(RestartLevelAfterDelay(1f)); // Adjust the delay time as needed
+
+                // Toggle the game over object if it's set in the Inspector
+                if (gameOverController != null)
+                {
+                    gameOverController.ToggleGameOverObject(true);
+                }
             }
         }
     }
@@ -44,23 +46,16 @@ public class EnemyDamage : MonoBehaviour
 
     private void Update()
     {
-        if (isIdleScheduled && !isDead)
+      if (isIdleScheduled && !isDead)
         {
             // Play idle animation
             playerAnimator.SetTrigger("Idle");
             isIdleScheduled = false;
         }
     }
-
-    IEnumerator RestartLevelAfterDelay(float delay)
-    {
-        // Wait for the specified delay
-        yield return new WaitForSeconds(delay);
-
-        // Reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 }
+
+
 
 
 
