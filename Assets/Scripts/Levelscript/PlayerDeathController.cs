@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerDeathController : MonoBehaviour
 {
-    public Animator playerAnimator; // Reference to the player's Animator component
-    public GameObject gameOverObject; // Reference to the game over object
+    [SerializeField] private Animator playerAnimator; // Changed access modifier to private
+    [SerializeField] private GameObject gameOverObject; // Changed access modifier to private
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,3 +21,4 @@ public class PlayerDeathController : MonoBehaviour
         }
     }
 }
+

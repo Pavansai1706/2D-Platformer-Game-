@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement; // Required for scene management
 
 public class EnemyController : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Speed of movement
-    public float moveDistance = 10f; // Distance to move forth and back
-    public int maxHealth = 3; // Maximum health of the player
+    private float moveSpeed = 5f; // Speed of movement
+    private float moveDistance = 10f; // Distance to move forth and back
+    private int maxHealth = 3; // Maximum health of the player
 
     private int currentHealth; // Current health of the player
     private Vector3 startPosition;
@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     private bool movingForward = true;
     private Vector3 originalScale;
 
-    void Start()
+    private void Start()
     {
         startPosition = transform.position;
         targetPosition = startPosition + Vector3.right * moveDistance;
@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
         MoveEnemy();
     }
 
-    void MoveEnemy()
+    private void MoveEnemy()
     {
         // Move the enemy back and forth
         if (movingForward)
@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
     }
 
     // Handle collisions with player
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void TakeDamage()
+    private void TakeDamage()
     {
         // Decrease health
         currentHealth--;
@@ -74,13 +74,13 @@ public class EnemyController : MonoBehaviour
         else
         {
             // Update UI or perform any other action to reflect health change
-            Debug.Log("Player health: " + currentHealth);
-        }
-    }
 
-    void Die()
-    {
-        // Perform death actions here, such as restarting the level
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        void Die()
+        {
+            // Perform death actions here, such as restarting the level
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

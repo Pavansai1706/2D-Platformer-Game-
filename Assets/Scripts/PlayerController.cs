@@ -1,57 +1,58 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
-    public float crouchHeight = 0.5f;
-    public float normalHeight = 1.0f;
-    public float crouchSpeed = 5.0f;
-    public GameOverController gameOverContoller;
-    public ScoreController scoreController;
-    public Animator animator;
-    
+    private float crouchHeight = 0.5f;
+    private float normalHeight = 1.0f;
+    private float crouchSpeed = 5.0f;
+    private GameOverController gameOverController;
+    private ScoreController scoreController; // Added field for ScoreController
+   public Animator animator;
 
-    public float speed = 5.0f;
-    public float jumpForce = 6.0f; // Decreased jump force for cleaner jump
+    private float speed = 5.0f;
+    private float jumpForce = 4.0f; // Decreased jump force
 
-    private Rigidbody2D rb2d;
+    private Rigidbody2D rigidBody2d;
     private bool isCrouching = false;
     private BoxCollider2D playerCollider;
     private Vector2 normalColliderCenter;
     private Vector2 normalColliderSize;
+    private bool isGrounded = false;
+    private bool jump;
 
-    public static PlayerController playerController { get; internal set; }
+    private const string CROUCH = "Crouch";
+    private const string JUMP = "Jump";
+    private const string GROUND = "Ground";
+    private const string HORIZONTAL = "Horizontal";
+    private const string SPEED = "Speed";
 
     private void Awake()
     {
-        Debug.Log("Player Controller awake");
-        rb2d = GetComponent<Rigidbody2D>();
+        rigidBody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
-     
-    public void KillPlayer()
-    {
-        Debug.Log("Player Killed by the player");
-        gameOverContoller.PlayerDied();
-       
-    }
-    
-     
-  public void PickUpKey()
-    {
-        Debug.Log("Picked up the key");
-        scoreController.IncreaseScore(10);
-    }
+
     private void Start()
     {
         playerCollider = GetComponent<BoxCollider2D>();
         normalColliderCenter = playerCollider.offset;
         normalColliderSize = playerCollider.size;
+
+        // Find the ScoreController in the scene
+        scoreController = FindObjectOfType<ScoreController>();
+        if (scoreController == null)
+        {
+            Debug.LogError("ScoreController not found in the scene.");
+        }
     }
 
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        float horizontal = Input.GetAxisRaw(HORIZONTAL);
+        float vertical = Input.GetAxisRaw(JUMP);
         MoveCharacter(horizontal, vertical);
         PlayerMovementAnimation(horizontal, vertical);
 
@@ -66,34 +67,40 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
-        if (vertical > 0)
+
+        if (vertical > 0 && isGrounded)
         {
-            if (!isCrouching) // Only jump if not crouching
-                rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            rigidBody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            isGrounded = false;
         }
     }
 
     private void PlayerMovementAnimation(float horizontal, float vertical)
     {
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        Vector3 scale = transform.localScale;
-        if (horizontal < 0)
+        if (animator != null)
         {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (horizontal > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-        transform.localScale = scale;
+            animator.SetFloat(SPEED, Mathf.Abs(horizontal));
+            Vector3 scale = transform.localScale;
+            if (horizontal < 0)
+            {
+                scale.x = -1f * Mathf.Abs(scale.x);
+            }
+            else if (horizontal > 0)
+            {
+                scale.x = Mathf.Abs(scale.x);
+            }
+            transform.localScale = scale;
 
-        if (vertical > 0 && !isCrouching)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
+            if (vertical > 0 && !isCrouching)
+            {
+                jump = true;
+                animator.SetBool(JUMP, true);
+            }
+            else
+            {
+                jump = false;
+                animator.SetFloat("yVelocity", rigidBody2d.velocity.y);
+            }
         }
     }
 
@@ -103,12 +110,12 @@ public class PlayerController : MonoBehaviour
 
         if (isCrouching)
         {
-            animator.SetBool("Crouch", true);
+            animator.SetBool(CROUCH, true);
             StartCoroutine(ResizeCollider(crouchHeight));
         }
         else
         {
-            animator.SetBool("Crouch", false);
+            animator.SetBool(CROUCH, false);
             StartCoroutine(ResizeCollider(normalHeight));
         }
     }
@@ -131,5 +138,34 @@ public class PlayerController : MonoBehaviour
         playerCollider.size = targetSize;
         playerCollider.offset = targetOffset;
     }
-}
 
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.transform.CompareTag(GROUND))
+        {
+            isGrounded = true;
+            if (animator != null)
+            {
+                animator.SetBool(JUMP, !isGrounded);
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.transform.CompareTag(GROUND))
+        {
+            isGrounded = false;
+        }
+    }
+
+    private void KillPlayer() => gameOverController.PlayerDied();
+
+    public void PickUpKey()
+    {
+        if (scoreController != null)
+        {
+            scoreController.IncreaseScore(10);
+        }
+    }
+}
